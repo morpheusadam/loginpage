@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>Jalali DatePicker Example</title>
+
+  <!-- استایل دیت‌پیکر -->
+  <link rel="stylesheet" href="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.css">
+
+  <!-- اسکریپت دیت‌پیکر -->
+  <script src="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.js"></script>
+</head>
+<body style="direction: rtl; font-family: sans-serif; text-align: center; margin-top: 100px;">
+
+  <label for="dateInput">تاریخ را انتخاب کنید:</label>
+  <input id="dateInput" data-jdp placeholder="مثلاً 1404/07/15">
+
+  <script>
+    // شروع کار دیت‌پیکر
+    jalaliDatepicker.startWatch({
+      minDate: "today",     // حداقل تاریخ: امروز
+      showTodayBtn: true,   // دکمه "امروز"
+      autoHide: true,       // بستن خودکار بعد از انتخاب
+    });
+
+    // اگر خواستی مقدار انتخاب‌شده رو بگیری:
+    const input = document.getElementById('dateInput');
+    input.addEventListener('change', () => {
+      console.log('تاریخ انتخاب‌شده:', input.value);
+      alert('تاریخ انتخاب‌شده: ' + input.value);
+    });
+  </script>
+
+</body>
+</html>

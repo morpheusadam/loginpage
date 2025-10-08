@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>فرم ورود با کد و تاریخ شمسی</title>
+
+  <!-- Font: Vazirmatn -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/yekan-font@1.0.0/css/yekan-font.min.css">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css">
+
+  <!-- JalaliDatePicker CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.css">
+
+  <!-- JalaliDatePicker (از CDN مطمئن) -->
+  <link rel="stylesheet" href="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.css">
+
+  <!-- استایل‌های پروژه (دلخواه خودت) -->
+  <link rel="stylesheet" href="./assets/css/styles.css">
+
+  <style>
+    /* مطمئن شو تقویم بالاتر از ذرات دیده می‌شود */
+    .jalali-datepicker-container,
+    jdp-container,
+    .jdp-container { z-index: 999999 !important; }
+    body { font-family: Vazirmatn, sans-serif; }
+  </style>
+</head>
+<body>
+  <!-- لایه‌ی ذرات -->
+  <div id="particles-js" aria-hidden="true"></div>
+
+  <!-- کارت فرم -->
+
+  
+  <main class="hs-container" role="main">
+    <section class="hs-main" aria-labelledby="loginHeader">
+<header id="loginHeader" class="hs-header">
+  <img src="./assets/img/tabiat-logo.svg" alt="لوگوی طبیعت" class="hs-header-logo">
+</header>
+      <div class="hs-center-dropdown">
+        <label for="hs-center-select">مرکز را انتخاب کنید</label>
+        <div class="hs-select-wrapper">
+          <i class="fa-solid fa-building" aria-hidden="true"></i>
+          <select id="hs-center-select" aria-label="انتخاب مرکز" required>
+            <option value="" selected disabled>— انتخاب مرکز —</option>
+            <option value="central">مرکز مرکزی</option>
+            <option value="north">مرکز شمال</option>
+            <option value="south">مرکز جنوب</option>
+            <option value="east">مرکز شرق</option>
+            <option value="west">مرکز غرب</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="hs-form-container">
+        <form id="hs-login-form" novalidate>
+          <h2 class="hs-form-title">ورود به حساب</h2>
+
+          <div class="hs-input-group">
+            <i class="fa-solid fa-hashtag" aria-hidden="true"></i>
+            <input
+              id="hs-code"
+              class="hs-input"
+              type="text"
+              inputmode="numeric"
+              pattern="\d{4,8}"
+              placeholder="کد"
+              aria-label="کد"
+              required
+              autocomplete="one-time-code"
+            />
+          </div>
+
+          <div class="hs-input-group">
+            <i class="fa-solid fa-lock" aria-hidden="true"></i>
+            <input
+              id="hs-password"
+              class="hs-input"
+              type="password"
+              placeholder="رمز عبور"
+              aria-label="رمز عبور"
+              required
+              autocomplete="current-password"
+            />
+          </div>
+
+          <div class="hs-input-group">
+            <i class="fa-regular fa-calendar-days" aria-hidden="true"></i>
+            <input
+              id="hs-login-date"
+              type="text"
+              class="hs-date-input"
+              data-jdp
+              data-jdp-only-date="true"
+              placeholder="تاریخ (YYYY/MM/DD)"
+              aria-label="تاریخ"
+              inputmode="none"
+              readonly
+            />
+          </div>
+
+          <div class="hs-options">
+            <label class="hs-remember">
+              <input id="hs-remember" type="checkbox"> مرا به خاطر بسپار
+            </label>
+          </div>
+
+          <button type="submit" class="hs-btn">ورود</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- scripts (همه را defer بگذار که DOM کامل باشد) -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js" defer></script>
+
+  <!-- JalaliDatePicker از CDN مطمئن -->
+  <script src="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.js" defer></script>
+
+  <!-- اگر خواستی از فایل‌های لوکال استفاده کنی، دو خط بالا را با مسیرهای خودت جایگزین کن و مطمئن شو فایل‌ها واقعاً وجود دارند:
+  <link rel="stylesheet" href="./assets/css/jalalidatepicker.min.css">
+  <script src="./assets/js/jalalidatepicker.min.js" defer></script>
+  -->
+
+  <script src="./assets/js/app.js"></script>
+</body>
+</html>
