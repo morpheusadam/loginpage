@@ -105,3 +105,95 @@
         });
       }
     });
+
+
+
+
+
+
+
+
+
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+  const shell = document.querySelector('.hs-logo-shell');
+  if (!shell) return;
+
+  const finePointer = matchMedia('(pointer: fine)').matches;
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  let rafId = null;
+  let target = { rx: 0, ry: 0, tz: 0 };   // مقادیر هدف
+  let state  = { rx: 0, ry: 0, tz: 0 };   // مقادیر فعلی (lerp)
+
+  const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
+  const lerp  = (a, b, t) => a + (b - a) * t;
+
+  function setVars() {
+    state.rx = lerp(state.rx, target.rx, 0.12);
+    state.ry = lerp(state.ry, target.ry, 0.12);
+    state.tz = lerp(state.tz, target.tz, 0.18);
+
+    shell.style.setProperty('--rx', `${state.rx}deg`);
+    shell.style.setProperty('--ry', `${state.ry}deg`);
+    shell.style.setProperty('--tz', `${state.tz}px`);
+
+    // تا وقتی اختلاف وجود داره، انیمیشن ادامه پیدا کنه
+    if (Math.abs(state.rx - target.rx) > 0.05 ||
+        Math.abs(state.ry - target.ry) > 0.05 ||
+        Math.abs(state.tz - target.tz) > 0.05) {
+      rafId = requestAnimationFrame(setVars);
+    } else {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+  }
+
+  function aim(e) {
+    const rect = shell.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;   // 0..1
+    const y = (e.clientY - rect.top)  / rect.height;  // 0..1
+    const dx = (x - 0.5) * 2;  // -1..1
+    const dy = (y - 0.5) * 2;  // -1..1
+
+    // زاویه‌ها ظریف و حرفه‌ای
+    target.ry = clamp(dx * 12, -14, 14);       // حول محور Y (چپ/راست)
+    target.rx = clamp(-dy * 10, -12, 12);      // حول محور X (بالا/پایین)
+    target.tz = clamp((1 - (Math.abs(dx) + Math.abs(dy)) / 2) * 18, 6, 18);
+
+    if (!rafId) rafId = requestAnimationFrame(setVars);
+  }
+
+  function resetTilt() {
+    target.rx = 0; target.ry = 0; target.tz = 0;
+    if (!rafId) rafId = requestAnimationFrame(setVars);
+  }
+
+  // تعاملات
+  if (finePointer && !reduceMotion) {
+    shell.addEventListener('pointermove', aim);
+    shell.addEventListener('pointerleave', resetTilt);
+  }
+
+  // کلیک/تاچ – تپ لطیف
+  shell.addEventListener('pointerdown', () => {
+    shell.classList.add('is-pressed');
+  });
+  shell.addEventListener('pointerup', () => {
+    shell.classList.remove('is-pressed');
+  });
+  shell.addEventListener('pointercancel', () => {
+    shell.classList.remove('is-pressed');
+  });
+
+  // ورودی کیبورد هم شاین داشته باشد
+  shell.addEventListener('focus', () => {
+    if (reduceMotion) return;
+    shell.classList.add('is-focused');
+  });
+  shell.addEventListener('blur', () => {
+    shell.classList.remove('is-focused');
+    resetTilt();
+  });
+});

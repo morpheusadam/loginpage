@@ -1,280 +1,426 @@
- /* ریست ساده */
- 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    html, body {
-      height: 100%;
-    }
+/* --------------------- 🌑 ریست عمومی --------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, body {
+  height: 100%;
+}
 
+/* --------------------- 🎨 رنگ‌ها و متغیرها --------------------- */
+:root {
+  --bg: #0d1117;
+  --card: rgba(25,30,40,.92);
+  --text: #e6e6e6;
+  --accent1: #6c5ce7;
+  --accent2: #48dbfb;
+  --ring: rgba(72,219,251,.4);
+  --border: rgba(255,255,255,.1);
+}
 
-    :root {
-      --bg: #0d1117;
-      --card: rgba(25,30,40,.92);
-      --text: #e6e6e6;
-      --accent1: #6c5ce7;
-      --accent2: #48dbfb;
-      --ring: rgba(72,219,251,.4);
-      --border: rgba(255,255,255,.1);
-    }
+/* --------------------- 🧱 بدنه صفحه --------------------- */
+body {
+  font-family: "Yekan", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
 
-    /* لوگو داخل هدر */
+/* placeholder */
+::placeholder {
+  font-family: "Yekan", sans-serif;
+  color: #cfd3dc;
+}
+:-ms-input-placeholder,
+::-ms-input-placeholder {
+  font-family: "Yekan", sans-serif;
+}
+
+/* --------------------- ✨ لایه ذرات --------------------- */
+#particles-js {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* --------------------- 📦 کارت فرم --------------------- */
+.hs-container {
+  width: 100%;
+  max-width: 420px;
+  background: var(--card);
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0,0,0,.6);
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  padding: 3px;
+  animation: hs-fadeInScale .6s ease;
+}
+.hs-main {
+  border-radius: 10px;
+  background: var(--bg);
+  position: relative;
+}
+
+/* حاشیه گردان رنگی اطراف کارت */
+.hs-container::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(#00ff00,hsl(256,100%,50%),hsl(312,100%,50%));
+  animation: hs-rotateBg 6s linear infinite;
+  z-index: -1;
+}
+@keyframes hs-rotateBg {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes hs-fadeInScale {
+  from { opacity: 0; transform: scale(.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* --------------------- 🧩 هدر --------------------- */
+.hs-header {
+  background: rgba(31,36,46,.9);
+  padding: 18px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  text-align: center;
+  font-weight: 700;
+  color: var(--accent2);
+  animation: hsHeaderFade .8s ease-out both;
+  animation-delay: .1s;
+}
+@keyframes hsHeaderFade {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --------------------- 🌐 لوگوی شرکتی با انیمیشن حرفه‌ای --------------------- */
+.hs-logo-shell {
+  --size: 112px;
+  --accent1: var(--accent1, #6c5ce7);
+  --accent2: var(--accent2, #48dbfb);
+  --ring: var(--ring, rgba(72,219,251,.4));
+  --rx: 0deg;
+  --ry: 0deg;
+  --tz: 0px;
+  width: var(--size);
+  aspect-ratio: 1/1;
+  margin: 14px auto;
+  position: relative;
+  display: grid;
+  place-items: center;
+  transform-style: preserve-3d;
+  perspective: 900px;
+  outline: none;
+  cursor: default;
+
+  /* ورود نرم */
+  opacity: 0;
+  transform: translateY(20px) scale(0.9);
+  filter: blur(4px);
+  animation: hsLogoIntro 1.2s cubic-bezier(.19,1,.22,1) forwards;
+  animation-delay: .2s;
+}
+
+/* لوگو */
 .hs-header-logo {
-  width: 100px;
+  width: 100%;
   height: auto;
   display: block;
-  margin: 0 auto;
-  filter: drop-shadow(0 0 8px rgba(72,219,251,0.4));
-  transition: transform .3s;
+  will-change: transform, filter;
+  transform: translateZ(var(--tz)) rotateX(var(--rx)) rotateY(var(--ry));
+  filter:
+    drop-shadow(0 2px 10px rgba(0,0,0,.35))
+    drop-shadow(0 0 12px rgba(72,219,251,.25));
+  transition: transform .18s cubic-bezier(.22,.61,.36,1), filter .3s ease;
+  backface-visibility: hidden;
 }
-.hs-header-logo:hover {
-  transform: scale(1.05);
+
+/* افکت نور تنفسی */
+.hs-logo-glow {
+  position: absolute;
+  inset: -22%;
+  border-radius: 50%;
+  pointer-events: none;
+  background:
+    radial-gradient(closest-side, color-mix(in oklab, var(--accent2) 60%, transparent) 0%, transparent 65%),
+    radial-gradient(closest-side, color-mix(in oklab, var(--accent1) 40%, transparent) 0%, transparent 70%);
+  filter: blur(14px);
+  opacity: 0;
+  animation: hsGlowIntro 1.2s ease forwards, hsGlow 4.6s ease-in-out 1.2s infinite;
 }
 
-    body {
-      font-family: "Yekan", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      position: relative;
-    }
+/* حلقه اوربیت */
+.hs-logo-orbit {
+  position: absolute;
+  inset: -6px;
+  border-radius: 24px;
+  pointer-events: none;
+  background: conic-gradient(from 0deg, var(--accent2), var(--accent1), var(--accent2));
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #000 calc(100% - 4px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #000 calc(100% - 4px));
+  opacity: 0;
+  animation: hsOrbitIntro 1s ease forwards, hsOrbit 6.2s linear 1s infinite;
+  filter: drop-shadow(0 0 10px color-mix(in oklab, var(--accent2) 35%, transparent));
+}
 
-    /* placeholder ها هم با یکان */
-    ::placeholder {
-      font-family: "Yekan", sans-serif;
-      color: #cfd3dc;
-    }
-    :-ms-input-placeholder {
-      font-family: "Yekan", sans-serif;
-    }
-    ::-ms-input-placeholder {
-      font-family: "Yekan", sans-serif;
-    }
+/* شاین شیشه‌ای */
+.hs-logo-shell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  pointer-events: none;
+  background: linear-gradient(75deg, transparent 20%, rgba(255,255,255,.11) 35%, rgba(255,255,255,.22) 45%, rgba(255,255,255,.08) 55%, transparent 70%);
+  transform: translateX(-120%) rotateZ(0.001deg);
+  transition: transform .7s cubic-bezier(.19,1,.22,1);
+}
 
-    /* لایه ذرات */
-    #particles-js {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-    }
+/* افکت خط زیر هدر */
+.hs-header::after {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent2), var(--accent1), transparent);
+  background-size: 200% 100%;
+  animation: hsUnderline 5.5s linear infinite;
+  opacity: .65;
+  filter: drop-shadow(0 0 6px var(--ring));
+}
 
-    /* کارت فرم */
-    .hs-container {
-      width: 100%;
-      max-width: 420px;
-      background: var(--card);
-      border-radius: 10px;
-      box-shadow: 0 8px 32px rgba(0,0,0,.6);
-      position: relative;
-      z-index: 1;
-      overflow: hidden;
-      padding: 3px;
-      animation: hs-fadeInScale .6s ease;
-    }
+/* ---------- تعامل ---------- */
+@media (pointer: fine) {
+  .hs-logo-shell:hover .hs-header-logo {
+    transform: translateZ(18px) rotateX(var(--rx)) rotateY(var(--ry)) scale(1.03);
+    filter:
+      drop-shadow(0 8px 24px rgba(0,0,0,.45))
+      drop-shadow(0 0 22px color-mix(in oklab, var(--accent2) 40%, transparent));
+  }
+  .hs-logo-shell:hover::after,
+  .hs-logo-shell:focus-visible::after {
+    transform: translateX(120%) rotateZ(0.001deg);
+  }
+}
 
-    .hs-main {
-      border-radius: 10px;
-      background: var(--bg);
-      position: relative;
-    }
+/* فوکوس */
+.hs-logo-shell:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent2) 55%, transparent),
+              0 0 0 6px rgba(255,255,255,.06);
+  border-radius: 18px;
+}
 
-    .hs-container::before {
-      content: "";
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: conic-gradient(
-        #00ff00,
-        hsl(256,100%,50%),
-        hsl(312,100%,50%)
-      );
-      animation: hs-rotateBg 6s linear infinite;
-      z-index: -1;
-    }
+/* کلیک */
+.hs-logo-shell.is-pressed .hs-header-logo {
+  animation: hsTap .32s cubic-bezier(.22,.61,.36,1);
+}
 
-    @keyframes hs-rotateBg {
-      from { transform: rotate(0) }
-      to { transform: rotate(360deg) }
-    }
-    @keyframes hs-fadeInScale {
-      from { opacity: 0; transform: scale(.9) }
-      to { opacity: 1; transform: scale(1) }
-    }
+/* ---------- انیمیشن‌ها ---------- */
+@keyframes hsLogoIntro {
+  0% { opacity: 0; transform: translateY(24px) scale(0.8); filter: blur(8px); }
+  40% { opacity: 1; transform: translateY(-6px) scale(1.04); filter: blur(0); }
+  70% { transform: translateY(0) scale(0.97); }
+  100% { opacity: 1; transform: translateY(0) scale(1); filter: none; }
+}
+@keyframes hsGlowIntro {
+  0% { opacity: 0; transform: scale(0.8); }
+  100% { opacity: .42; transform: scale(1); }
+}
+@keyframes hsOrbitIntro {
+  0% { opacity: 0; transform: scale(0.6) rotate(0deg); }
+  100% { opacity: .65; transform: scale(1) rotate(45deg); }
+}
+@keyframes hsGlow {
+  0%, 100% { opacity: .34; transform: translateZ(-10px) scale(1); }
+  50% { opacity: .52; transform: translateZ(-10px) scale(1.06); }
+}
+@keyframes hsOrbit {
+  to { transform: translateZ(-5px) rotate(360deg); }
+}
+@keyframes hsUnderline {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+@keyframes hsTap {
+  0% { transform: translateZ(0) scale(1); }
+  40% { transform: translateZ(8px) scale(.97); }
+  100% { transform: translateZ(0) scale(1); }
+}
 
-    /* هدر */
-    .hs-header {
-      background: rgba(31,36,46,.9);
-      padding: 18px;
-      border-top-left-radius: 10px;
-      border-top-right-radius: 10px;
-      font-weight: 700;
-      text-align: center;
-      color: var(--accent2);
-    }
+/* احترام به کاهش موشن */
+@media (prefers-reduced-motion: reduce) {
+  .hs-logo-orbit,
+  .hs-logo-glow,
+  .hs-header::after { animation: none !important; }
+  .hs-logo-shell::after { transition: none !important; }
+  .hs-header-logo { transition: filter .2s ease; }
+}
 
-    /* دراپ‌داون مرکز */
-    .hs-center-dropdown {
-      padding: 16px 18px 0 18px;
-      text-align: center;
-    }
-    .hs-center-dropdown label {
-      display: block;
-      font-size: 13px;
-      color: #cfd3dc;
-      margin-bottom: 8px;
-    }
-    .hs-select-wrapper {
-      max-width: 360px;
-      margin: 0 auto 6px auto;
-      position: relative;
-    }
-    .hs-select-wrapper i {
-      position: absolute;
-      right: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--accent1);
-      pointer-events: none;
-    }
-    .hs-select-wrapper::after {
-      content: "\f107";
-      font-family: "Font Awesome 6 Free";
-      font-weight: 900;
-      position: absolute;
-      left: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #9aa4b2;
-      pointer-events: none;
-    }
-    .hs-select-wrapper select {
-      width: 100%;
-      appearance: none;
-      background: rgba(35,40,50,.7);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      color: #fff;
-      font-size: 15px;
-      padding: 12px 44px 12px 40px;
-      transition: .3s;
-      direction: rtl;
-      font-family: "Yekan", sans-serif;
-    }
-    .hs-select-wrapper select:focus {
-      outline: none;
-      border-color: var(--accent2);
-      box-shadow: 0 0 8px var(--ring);
-    }
+/* --------------------- 🧾 فرم و ورودی‌ها --------------------- */
+.hs-center-dropdown {
+  padding: 16px 18px 0 18px;
+  text-align: center;
+}
+.hs-center-dropdown label {
+  display: block;
+  font-size: 13px;
+  color: #cfd3dc;
+  margin-bottom: 8px;
+}
+.hs-select-wrapper {
+  max-width: 360px;
+  margin: 0 auto 6px auto;
+  position: relative;
+}
+.hs-select-wrapper i {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--accent1);
+  pointer-events: none;
+}
+.hs-select-wrapper::after {
+  content: "\f107";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9aa4b2;
+  pointer-events: none;
+}
+.hs-select-wrapper select {
+  width: 100%;
+  appearance: none;
+  background: rgba(35,40,50,.7);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 15px;
+  padding: 12px 44px 12px 40px;
+  transition: .3s;
+  direction: rtl;
+  font-family: "Yekan", sans-serif;
+}
+.hs-select-wrapper select:focus {
+  outline: none;
+  border-color: var(--accent2);
+  box-shadow: 0 0 8px var(--ring);
+}
 
-    /* فرم */
-    .hs-form-container {
-      padding: 22px 18px 24px 18px;
-      border-bottom-left-radius: 10px;
-      border-bottom-right-radius: 10px;
-    }
-    .hs-form-title {
-      text-align: center;
-      margin-bottom: 18px;
-      color: #fff;
-      font-size: 20px;
-    }
+/* --------------------- 🧠 فرم --------------------- */
+.hs-form-container {
+  padding: 22px 18px 24px 18px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.hs-form-title {
+  text-align: center;
+  margin-bottom: 18px;
+  color: #fff;
+  font-size: 20px;
+}
+.hs-input-group {
+  margin-bottom: 16px;
+  position: relative;
+}
+.hs-input-group i {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--accent1);
+}
+.hs-input, .hs-date-input {
+  width: 100%;
+  padding: 14px 44px 14px 14px;
+  background: rgba(35,40,50,.7);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 15px;
+  transition: .3s;
+  font-family: "Yekan", sans-serif;
+}
+.hs-input:focus, .hs-date-input:focus {
+  outline: none;
+  border-color: var(--accent2);
+  box-shadow: 0 0 8px var(--ring);
+}
 
-    .hs-input-group {
-      margin-bottom: 16px;
-      position: relative;
-    }
-    .hs-input-group i {
-      position: absolute;
-      right: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--accent1);
-    }
+/* --------------------- ⚙️ گزینه‌ها و دکمه --------------------- */
+.hs-options {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+.hs-remember {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: "Yekan", sans-serif;
+}
+.hs-remember input {
+  accent-color: var(--accent1);
+}
 
-    .hs-input, .hs-date-input {
-      width: 100%;
-      padding: 14px 44px 14px 14px;
-      background: rgba(35,40,50,.7);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      color: #fff;
-      font-size: 15px;
-      transition: .3s;
-      font-family: "Yekan", sans-serif;
-    }
-    .hs-input:focus, .hs-date-input:focus {
-      outline: none;
-      border-color: var(--accent2);
-      box-shadow: 0 0 8px var(--ring);
-    }
+/* دکمه ورود */
+.hs-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(90deg, var(--accent1), var(--accent2));
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: .3s;
+  position: relative;
+  overflow: hidden;
+  font-family: "Yekan", sans-serif;
+}
+.hs-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  left: -100%;
+  background: rgba(255,255,255,.2);
+  transform: skewX(-20deg);
+  transition: .5s;
+}
+.hs-btn:hover::before { left: 100%; }
+.hs-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(108,92,231,.4);
+}
 
-    /* گزینه‌ها و دکمه */
-    .hs-options {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      font-size: 14px;
-      margin-bottom: 18px;
-    }
-    .hs-remember {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-family: "Yekan", sans-serif;
-    }
-    .hs-remember input {
-      accent-color: var(--accent1);
-    }
-
-    .hs-btn {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      border-radius: 10px;
-      background: linear-gradient(90deg, var(--accent1), var(--accent2));
-      color: #fff;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: .3s;
-      position: relative;
-      overflow: hidden;
-      font-family: "Yekan", sans-serif;
-    }
-    .hs-btn::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      left: -100%;
-      background: rgba(255,255,255,.2);
-      transform: skewX(-20deg);
-      transition: .5s;
-    }
-    .hs-btn:hover::before {
-      left: 100%;
-    }
-    .hs-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(108,92,231,.4);
-    }
-
-    @media (max-width: 480px) {
-      .hs-form-container {
-        padding: 18px;
-      }
-      .hs-options {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-      }
-    }
+/* --------------------- 📱 ریسپانسیو --------------------- */
+@media (max-width: 480px) {
+  .hs-form-container { padding: 18px; }
+  .hs-options {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
