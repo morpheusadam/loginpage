@@ -39,40 +39,64 @@
 
        const dateInput = $$('#hs-login-date');
 
-       if (typeof jalaliDatepicker !== 'undefined' && dateInput) {
-         jalaliDatepicker.startWatch({
-          minDate: "today",
-          showTodayBtn: true,
-          autoHide: true,
-          time: false,
-          date: true,
-        });
 
-         if (!dateInput.value) {
-          if (typeof jalaliDatepicker.getJalaliDate === 'function') {
-            dateInput.value = jalaliDatepicker.getJalaliDate(new Date(), '/');
-          } else {
-            dateInput.value = getJTodayFallback('/');
-          }
-        }
 
-         const open = () => {
-          try { jalaliDatepicker.show(dateInput); }
-          catch(e){ /* اگر نسخه متد show نداشت، کلیک مصنوعی کار می‌کند */ 
-            dateInput.dispatchEvent(new MouseEvent('click',{bubbles:true}));
-          }
-        };
-        dateInput.addEventListener('focus', open);
-        dateInput.addEventListener('click', open);
 
-         const icon = dateInput.closest('.hs-input-group')?.querySelector('i');
-        if (icon){ icon.style.cursor='pointer'; icon.addEventListener('click', open); }
 
-         dateInput.addEventListener('keydown', e=> e.preventDefault());
-      } else {
-         if (dateInput && !dateInput.value) dateInput.value = getJTodayFallback('/');
-        console.error('jalaliDatepicker not found. Check CDN/file path.');
-      }
+
+if (typeof jalaliDatepicker !== 'undefined' && dateInput) {
+  // اگر روی اینپوت اتریبیوت محدودکننده هست پاکش کن
+  dateInput.removeAttribute('data-jdp-min-date');
+  dateInput.removeAttribute('data-jdp-max-date');
+
+  jalaliDatepicker.startWatch({
+    // minDate: "today",   // ⛔ این باعث محدودیت بود — حذف شد
+    // یا اگر ترجیح می‌دید صریح باشه:
+    // minDate: null,
+    showTodayBtn: true,
+    autoHide: true,
+    time: false,
+    date: true,
+    // بقیه تنظیمات دلخواه…
+  });
+
+  if (!dateInput.value) {
+    if (typeof jalaliDatepicker.getJalaliDate === 'function') {
+      dateInput.value = jalaliDatepicker.getJalaliDate(new Date(), '/');
+    } else {
+      dateInput.value = getJTodayFallback('/');
+    }
+  }
+
+  const open = () => {
+    try { jalaliDatepicker.show(dateInput); }
+    catch (e) { // اگر نسخه متد show نداشت، کلیک مصنوعی کار می‌کند
+      dateInput.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    }
+  };
+  dateInput.addEventListener('focus', open);
+  dateInput.addEventListener('click', open);
+
+  const icon = dateInput.closest('.hs-input-group')?.querySelector('i');
+  if (icon) { icon.style.cursor = 'pointer'; icon.addEventListener('click', open); }
+
+  // اگر نمی‌خواید کاربر دستی تایپ کنه همین رو نگه دارید
+  dateInput.addEventListener('keydown', e => e.preventDefault());
+} else {
+  if (dateInput && !dateInput.value) dateInput.value = getJTodayFallback('/');
+  console.error('jalaliDatepicker not found. Check CDN/file path.');
+}
+
+
+
+
+
+
+
+
+
+
+
 
        const form = $$('#hs-login-form');
       if (form){
