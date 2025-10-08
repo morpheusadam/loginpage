@@ -1,5 +1,4 @@
-/* --------------------- 🌑 ریست عمومی --------------------- */
-* {
+ * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -8,8 +7,7 @@ html, body {
   height: 100%;
 }
 
-/* --------------------- 🎨 رنگ‌ها و متغیرها --------------------- */
-:root {
+ :root {
   --bg: #0d1117;
   --card: rgba(25,30,40,.92);
   --text: #e6e6e6;
@@ -19,8 +17,7 @@ html, body {
   --border: rgba(255,255,255,.1);
 }
 
-/* --------------------- 🧱 بدنه صفحه --------------------- */
-body {
+ body {
   font-family: "Yekan", sans-serif;
   background: var(--bg);
   color: var(--text);
@@ -42,8 +39,7 @@ body {
   font-family: "Yekan", sans-serif;
 }
 
-/* --------------------- ✨ لایه ذرات --------------------- */
-#particles-js {
+ #particles-js {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -51,8 +47,7 @@ body {
   z-index: 0;
 }
 
-/* --------------------- 📦 کارت فرم --------------------- */
-.hs-container {
+ .hs-container {
   width: 100%;
   max-width: 420px;
   background: var(--card);
@@ -91,8 +86,7 @@ body {
   to { opacity: 1; transform: scale(1); }
 }
 
-/* --------------------- 🧩 هدر --------------------- */
-.hs-header {
+ .hs-header {
   background: rgba(31,36,46,.9);
   padding: 18px;
   border-top-left-radius: 10px;
@@ -108,8 +102,7 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* --------------------- 🌐 لوگوی شرکتی با انیمیشن حرفه‌ای --------------------- */
-.hs-logo-shell {
+ .hs-logo-shell {
   --size: 112px;
   --accent1: var(--accent1, #6c5ce7);
   --accent2: var(--accent2, #48dbfb);
@@ -190,8 +183,7 @@ body {
   transition: transform .7s cubic-bezier(.19,1,.22,1);
 }
 
-/* افکت خط زیر هدر */
-.hs-header::after {
+ .hs-header::after {
   content: "";
   position: absolute;
   left: 8%;
@@ -205,8 +197,7 @@ body {
   filter: drop-shadow(0 0 6px var(--ring));
 }
 
-/* ---------- تعامل ---------- */
-@media (pointer: fine) {
+ @media (pointer: fine) {
   .hs-logo-shell:hover .hs-header-logo {
     transform: translateZ(18px) rotateX(var(--rx)) rotateY(var(--ry)) scale(1.03);
     filter:
@@ -219,8 +210,7 @@ body {
   }
 }
 
-/* فوکوس */
-.hs-logo-shell:focus-visible {
+ .hs-logo-shell:focus-visible {
   box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent2) 55%, transparent),
               0 0 0 6px rgba(255,255,255,.06);
   border-radius: 18px;
@@ -231,8 +221,7 @@ body {
   animation: hsTap .32s cubic-bezier(.22,.61,.36,1);
 }
 
-/* ---------- انیمیشن‌ها ---------- */
-@keyframes hsLogoIntro {
+ @keyframes hsLogoIntro {
   0% { opacity: 0; transform: translateY(24px) scale(0.8); filter: blur(8px); }
   40% { opacity: 1; transform: translateY(-6px) scale(1.04); filter: blur(0); }
   70% { transform: translateY(0) scale(0.97); }
@@ -272,8 +261,7 @@ body {
   .hs-header-logo { transition: filter .2s ease; }
 }
 
-/* --------------------- 🧾 فرم و ورودی‌ها --------------------- */
-.hs-center-dropdown {
+ .hs-center-dropdown {
   padding: 16px 18px 0 18px;
   text-align: center;
 }
@@ -326,8 +314,7 @@ body {
   box-shadow: 0 0 8px var(--ring);
 }
 
-/* --------------------- 🧠 فرم --------------------- */
-.hs-form-container {
+ .hs-form-container {
   padding: 22px 18px 24px 18px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
@@ -366,8 +353,7 @@ body {
   box-shadow: 0 0 8px var(--ring);
 }
 
-/* --------------------- ⚙️ گزینه‌ها و دکمه --------------------- */
-.hs-options {
+ .hs-options {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -384,8 +370,7 @@ body {
   accent-color: var(--accent1);
 }
 
-/* دکمه ورود */
-.hs-btn {
+ .hs-btn {
   width: 100%;
   padding: 14px;
   border: none;
@@ -415,8 +400,7 @@ body {
   box-shadow: 0 6px 16px rgba(108,92,231,.4);
 }
 
-/* --------------------- 📱 ریسپانسیو --------------------- */
-@media (max-width: 480px) {
+ @media (max-width: 480px) {
   .hs-form-container { padding: 18px; }
   .hs-options {
     flex-direction: column;

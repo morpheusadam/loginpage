@@ -1,9 +1,7 @@
-  // کمک‌تابع‌ها
-    const $$  = (s, r = document) => r.querySelector(s);
+     const $$  = (s, r = document) => r.querySelector(s);
     const $$$ = (s, r = document) => r.querySelectorAll(s);
 
-    // تبدیل امروز میلادی به جلالی (fallback)
-    function getJTodayFallback(sep='/'){
+     function getJTodayFallback(sep='/'){
       const g=new Date();
       const gdm=[0,31,((g.getFullYear()%4===0&&g.getFullYear()%100!==0)||g.getFullYear()%400===0)?29:28,31,30,31,30,31,31,30,31,30,31];
       let gy=g.getFullYear(), gm=g.getMonth()+1, gd=g.getDate();
@@ -20,8 +18,7 @@
     }
 
     document.addEventListener('DOMContentLoaded', function(){
-      // particles (اختیاری)
-      if (typeof particlesJS === 'function') {
+       if (typeof particlesJS === 'function') {
         particlesJS('particles-js',{
           particles:{ number:{value:80,density:{enable:true,value_area:800}},
             color:{value:'#6c5ce7'}, shape:{type:'circle'},
@@ -33,21 +30,17 @@
         });
       }
 
-      // حفظ انتخاب مرکز
-      const sel=$$('#hs-center-select');
+       const sel=$$('#hs-center-select');
       if (sel){
         const saved=localStorage.getItem('hs-selected-center');
         if(saved) sel.value=saved;
         sel.addEventListener('change',()=>localStorage.setItem('hs-selected-center',sel.value));
       }
 
-      // شروع دیت‌پیکر (استاندارد و پایدار)
-      const dateInput = $$('#hs-login-date');
+       const dateInput = $$('#hs-login-date');
 
-      // اگر نسخه/فایل جلالی درست لود شده باشد:
-      if (typeof jalaliDatepicker !== 'undefined' && dateInput) {
-        // هر ورودی با data-jdp را مشاهده می‌کند
-        jalaliDatepicker.startWatch({
+       if (typeof jalaliDatepicker !== 'undefined' && dateInput) {
+         jalaliDatepicker.startWatch({
           minDate: "today",
           showTodayBtn: true,
           autoHide: true,
@@ -55,8 +48,7 @@
           date: true,
         });
 
-        // مقدار پیش‌فرض: امروز
-        if (!dateInput.value) {
+         if (!dateInput.value) {
           if (typeof jalaliDatepicker.getJalaliDate === 'function') {
             dateInput.value = jalaliDatepicker.getJalaliDate(new Date(), '/');
           } else {
@@ -64,8 +56,7 @@
           }
         }
 
-        // باز شدن قطعی روی فوکِس/کلیک (بدون optionهای غیررسمی)
-        const open = () => {
+         const open = () => {
           try { jalaliDatepicker.show(dateInput); }
           catch(e){ /* اگر نسخه متد show نداشت، کلیک مصنوعی کار می‌کند */ 
             dateInput.dispatchEvent(new MouseEvent('click',{bubbles:true}));
@@ -74,20 +65,16 @@
         dateInput.addEventListener('focus', open);
         dateInput.addEventListener('click', open);
 
-        // کلیک روی آیکن هم بازش کند
-        const icon = dateInput.closest('.hs-input-group')?.querySelector('i');
+         const icon = dateInput.closest('.hs-input-group')?.querySelector('i');
         if (icon){ icon.style.cursor='pointer'; icon.addEventListener('click', open); }
 
-        // جلوگیری از تایپ دستی
-        dateInput.addEventListener('keydown', e=> e.preventDefault());
+         dateInput.addEventListener('keydown', e=> e.preventDefault());
       } else {
-        // اگر اسکریپت جلالی لود نشد، مقدار fallback بده
-        if (dateInput && !dateInput.value) dateInput.value = getJTodayFallback('/');
+         if (dateInput && !dateInput.value) dateInput.value = getJTodayFallback('/');
         console.error('jalaliDatepicker not found. Check CDN/file path.');
       }
 
-      // ولیدیشن فرم
-      const form = $$('#hs-login-form');
+       const form = $$('#hs-login-form');
       if (form){
         form.addEventListener('submit',(e)=>{
           e.preventDefault();
@@ -124,8 +111,8 @@
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   let rafId = null;
-  let target = { rx: 0, ry: 0, tz: 0 };   // مقادیر هدف
-  let state  = { rx: 0, ry: 0, tz: 0 };   // مقادیر فعلی (lerp)
+  let target = { rx: 0, ry: 0, tz: 0 };    
+  let state  = { rx: 0, ry: 0, tz: 0 };    
 
   const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
   const lerp  = (a, b, t) => a + (b - a) * t;
@@ -139,8 +126,7 @@
     shell.style.setProperty('--ry', `${state.ry}deg`);
     shell.style.setProperty('--tz', `${state.tz}px`);
 
-    // تا وقتی اختلاف وجود داره، انیمیشن ادامه پیدا کنه
-    if (Math.abs(state.rx - target.rx) > 0.05 ||
+     if (Math.abs(state.rx - target.rx) > 0.05 ||
         Math.abs(state.ry - target.ry) > 0.05 ||
         Math.abs(state.tz - target.tz) > 0.05) {
       rafId = requestAnimationFrame(setVars);
@@ -152,14 +138,13 @@
 
   function aim(e) {
     const rect = shell.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width;   // 0..1
-    const y = (e.clientY - rect.top)  / rect.height;  // 0..1
-    const dx = (x - 0.5) * 2;  // -1..1
-    const dy = (y - 0.5) * 2;  // -1..1
+    const x = (e.clientX - rect.left) / rect.width;   
+    const y = (e.clientY - rect.top)  / rect.height;  
+    const dx = (x - 0.5) * 2;   
+    const dy = (y - 0.5) * 2;   
 
-    // زاویه‌ها ظریف و حرفه‌ای
-    target.ry = clamp(dx * 12, -14, 14);       // حول محور Y (چپ/راست)
-    target.rx = clamp(-dy * 10, -12, 12);      // حول محور X (بالا/پایین)
+     target.ry = clamp(dx * 12, -14, 14);       
+    target.rx = clamp(-dy * 10, -12, 12);       
     target.tz = clamp((1 - (Math.abs(dx) + Math.abs(dy)) / 2) * 18, 6, 18);
 
     if (!rafId) rafId = requestAnimationFrame(setVars);
@@ -170,14 +155,12 @@
     if (!rafId) rafId = requestAnimationFrame(setVars);
   }
 
-  // تعاملات
-  if (finePointer && !reduceMotion) {
+   if (finePointer && !reduceMotion) {
     shell.addEventListener('pointermove', aim);
     shell.addEventListener('pointerleave', resetTilt);
   }
 
-  // کلیک/تاچ – تپ لطیف
-  shell.addEventListener('pointerdown', () => {
+   shell.addEventListener('pointerdown', () => {
     shell.classList.add('is-pressed');
   });
   shell.addEventListener('pointerup', () => {
@@ -187,8 +170,7 @@
     shell.classList.remove('is-pressed');
   });
 
-  // ورودی کیبورد هم شاین داشته باشد
-  shell.addEventListener('focus', () => {
+   shell.addEventListener('focus', () => {
     if (reduceMotion) return;
     shell.classList.add('is-focused');
   });
